@@ -7,7 +7,9 @@ AWS_ACC_ID="`grep AWS_ACC s3dockup.env`" # ; echo AWS_ACC_ID: $AWS_ACC_ID
 AWS_SEC_KEY="`grep AWS_SEC s3dockup.env`" # ; echo AWS_SEC_KEY: $AWS_SEC_KEY
 S3_BUCKET=`grep S3_BUC s3dockup.env | sed "s/^S.*=//"` # ; echo S3_BUCKET: $S3_BUCKET
 
-docker run --rm --env-file s3dockup.env --volumes-from data-volume -v /home/core:/home/core --name dockup tutum/dockup:latest
+LOCAL_VOLUMES=`grep LOCAL_VOLUMES s3dockup.env | sed -e "s/^LOCAL.*=\"//" -e "s/\"$//"` # ; echo LOCAL_VOLUMES = $LOCAL_VOLUMES
+
+docker run --rm --env-file s3dockup.env $LOCAL_VOLUMES --name dockup tutum/dockup:latest
 
 echo "*** Show contents of S3 Backup Bucket ***"
 echo
