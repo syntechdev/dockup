@@ -11,4 +11,4 @@ docker run --rm --env-file s3dockup.env --volumes-from data-volume -v /home/core
 
 echo "*** Show contents of S3 Backup Bucket ***"
 echo
-docker run --rm -t -i -e $AWS_ACC_ID -e $AWS_SEC_KEY --name dockup tutum/dockup:latest aws s3 ls ${S3_BUCKET}/
+docker run --rm -t -i -e $AWS_ACC_ID -e $AWS_SEC_KEY $LOCAL_VOLUMES --name dockup tutum/dockup:latest aws s3 ls ${S3_BUCKET}/
